@@ -76,6 +76,7 @@ from pydantic import BaseModel
 from langchain_anthropic import ChatAnthropic
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ToolStrategy
+from tools import search_tool, save_file
 
 load_dotenv()
 
@@ -95,9 +96,10 @@ You will also provide a list of sources and tools used in the research process.
 Answer the user query and use necessary tools to gather information and provide a comprehensive response.
 """
 
+tools = [search_tool, save_file]
 agent = create_agent(
     model=llm,
-    tools=[],
+    tools=tools,
     system_prompt=system_prompt,
     response_format=ToolStrategy(ResearchResponse),
 )
